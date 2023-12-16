@@ -1,0 +1,68 @@
+﻿@page
+@model Views.RegViewModel
+
+<body style="background-image: url('index.jpg');">
+
+<center>
+Параметры: @ViewBag.html
+@if (ViewBag.html == null)
+    {
+        <!-- Главная страница для неавторизованного пользователя -->
+            <table border=0>
+                <tr><td><button style="border-radius:10px;" onclick="document.getElementById('reg').style.display='none';document.getElementById('next').style.display='block';">Вход</button></td><td><button style="border-radius:10px;" onclick="document.getElementById('next').style.display='none';document.getElementById('reg').style.display='block';">Регистрация</button></td></tr>
+                <tr><td colspan=2>
+                        <!-- Вход  -->
+                        <div id=next>
+                            <form method="post" asp-controller="Home" asp-action="Details">
+                                Логин:<br>
+                                <input asp-for="Login" class="form-control" style="border-radius:10px;"><br>
+                                Пароль:<br>
+                                <input asp-for="PassReg" class="form-control" style="border-radius:10px;"><br>
+                                <button style="border-radius:10px;" onklick="form.submit();">Войти</button>
+                            </form>
+                        </div>
+                        <!-- Регистрация -->
+                        <div id=reg style="display: none;">
+                            <form method="post" asp-controller="Home" asp-action="Register">
+                                Логин:<br>
+                                <input asp-for="Login" class="form-control" style="border-radius:10px;"><br>
+                                Пароль:<br>
+                                <input asp-for="PassReg" class="form-control" style="border-radius:10px;"><br>
+                                Пароль (еще раз):<br>
+                                <input asp-for="PassConfirm" class="form-control" style="border-radius:10px;"><br>
+                                ФИО:<br>
+                                <input asp-for="FIO" class="form-control" style="border-radius:10px;"><br>
+                                Дата рождения:<br>
+                                <input asp-for="UserData" class="form-control" style="border-radius:10px;"><br>
+                                Фото:<br>
+                                <input asp-for="Image" class="form-control" style="border-radius:10px;"><br>
+                                <button style="border-radius:10px;" onklick="form.submit();">Регистрация</button>
+                            </form>
+                        </div>
+                    </td></tr>
+            </table>
+        } 
+@if (ViewBag.html == "1")
+        {
+            <p><table border="0">
+            <tr height="40"><td>Страница пользователя:</td></tr>
+            <tr height="140"><td><img src="@ViewBag.User.Image" height="128"></img</td></tr>
+            <tr height="20"><td><b>ФИО:</b></td></tr>
+            <tr height="40"><td><font size="+2" color="Navy">@ViewBag.User.FIO</font</td></tr>
+            <tr height="20"><td><b>Дата рождения:</b></td></tr>
+            <tr height="40"><td><font size="+2" color="Navy">@ViewBag.User.UserData</font</td></tr>
+            <tr height="20"><td><b>Обо мне:</b></td></tr>
+            <tr height="40"><td><font size="+2" color="Navy">@ViewBag.User.About</font</td></tr>
+            <tr height="40"><td><font size="+2" color="Navy"></font></td></tr>
+            <tr height="40"><td>
+            <form method="post" asp-controller="Home" asp-action="Edit" action="/">
+            <input type="hidden" name="Login" value="@ViewBag.User.Login">
+            <input type="hidden" name="PassReg" value="@ViewBag.User.PassReg">
+            <button style="border-radius:10px;" onklick="form.submit();">Редактировать</button>
+            </form>
+            </td></tr>
+            </table></p>          
+        }
+</center>
+
+</body>

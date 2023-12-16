@@ -1,0 +1,74 @@
+﻿@page
+@model SocialNetwork.Views.UserViewModel
+
+<body style="background-image: url('/index.jpg');">
+
+<center>
+
+<div id=userinfo style="display: block;">
+<table border="0">
+ <tr height="40"><td>Страница пользователя:</</td></tr>
+ <tr height="140"><td><img src="@ViewBag.User.Image" height="128"></img</td></tr>
+ <tr height="20"><td><b>ФИО:</b></td></tr>
+ <tr height="40"><td><font size="+2" color="Navy">@ViewBag.User.FIO</font</td></tr>
+ <tr height="20"><td><b>Дата рождения:</b></td></tr>
+ <tr height="40"><td><font size="+2" color="Navy">@ViewBag.User.UserData</font</td></tr>
+ <tr height="20"><td><b>Обо мне:</b></td></tr>
+ <tr height="40"><td><font size="+2" color="Navy">@ViewBag.User.About</font</td></tr>
+ <tr height="40"><td><font size="+2" color="Navy"><font</td></tr>
+ <tr height="40"><td>
+  <button style="border-radius:10px;" onclick="document.getElementById('userinfo').style.display='none';document.getElementById('useredit').style.display='block';">Редактировать</button>
+ <br>Список друзей:<br>
+ @foreach (var people in ViewBag.Users)
+  {
+     @foreach (var freind in ViewBag.Freinds)
+     {
+      @if (freind == people.Login)
+      {
+       <p>
+       <img src="@people.Image" height="64"><br>
+       @people.FIO
+       </p>                             
+      }
+     }
+ }
+ <br>Добавить друга:<br>
+  <form method="post" action="/Home/Freind">
+  <input type="hidden" name="UserLogin" value="@ViewBag.User.Login">
+  <select name="FrendLogin">
+  @foreach (var people in ViewBag.Users)
+    {
+      @if (people.Login != ViewBag.User.Login)
+        {
+        <option value="@people.Login">@people.FIO</option>
+        }
+    }
+  </select>
+  <button style="border-radius:10px;" onklick="form.submit();">Добавить в друзья</button>
+  </form>
+</td></tr>
+</table>
+</div>
+
+<div id=useredit style="display: none;">
+<form method="post" action="/Home/Register">
+ Логин:<br>
+  <input name="Login" value="@ViewBag.User.Login" readonly class="form-control" style="border-radius:10px;"><br>
+ Пароль:<br>
+  <input name="PassReg" value="@ViewBag.User.PassReg" readonly class="form-control" style="border-radius:10px;"><br>
+ Пароль (еще раз):<br>
+  <input name="PassConfirm" value="@ViewBag.User.PassReg" readonly class="form-control" style="border-radius:10px;"><br>
+ ФИО:<br>
+  <input name="FIO" value="@ViewBag.User.FIO" class="form-control" style="border-radius:10px;"><br>
+ Дата рождения:<br>
+ <input name="UserData" value="@ViewBag.User.UserData" class="form-control" style="border-radius:10px;"><br>
+ Фото:<br>
+ <input name="Image" value="@ViewBag.User.Image" class="form-control" style="border-radius:10px;"><br>
+ Обо мне:<br>
+ <input name="About" value="@ViewBag.User.About" class="form-control" style="border-radius:10px;"><br>
+ <button style="border-radius:10px;" onklick="form.submit();">Регистрация</button>
+</form>
+</div>
+
+</center>
+</body>
