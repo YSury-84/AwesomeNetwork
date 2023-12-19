@@ -6,7 +6,7 @@ namespace SocialNetwork.Model.Repository
 {
     public interface IUserRepository
     {
-        Task AddUser(User user);
+        public void AddUser(User user);
 
         public void ReadUser(ref User user);
 

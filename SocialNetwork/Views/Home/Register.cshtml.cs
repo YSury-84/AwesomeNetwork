@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace SocialNetwork.View.Home
+namespace SocialNetwork.Views.Home
 {
     public class RegisterModel : PageModel
     {

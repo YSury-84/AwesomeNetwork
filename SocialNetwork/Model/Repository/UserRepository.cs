@@ -21,7 +21,7 @@ namespace SocialNetwork.Model.Repository
             _context = context;
         }
 
-        public async Task AddUser(User user)
+        public void AddUser(User user)
         {
             // Добавление пользователя
             foreach (var people in _context.Users)
@@ -33,17 +33,27 @@ namespace SocialNetwork.Model.Repository
             }
             var entry = _context.Entry(user);
                if (entry.State == EntityState.Detached)
-            await _context.Users.AddAsync(user);
+            _context.Users.AddAsync(user);
             // Сохранение изенений
-            await _context.SaveChangesAsync();
+            _context.SaveChangesAsync();
         }
 
         public void ReadUser(ref User user)
         {
+
+            if (user != null)
             foreach (var entry in _context.Users) 
-            { 
+            {
                 if (entry.Login == user.Login)
-                    user = entry;
+                {
+                    if (entry.PassReg == user.PassReg)
+                    {
+                        user = entry;
+                    } else
+                    {
+                        user.Login = "";
+                    }
+                }
             }
         }
 
